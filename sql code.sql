@@ -1,7 +1,7 @@
 -- find top 10 highest revenue generating products 
 SELECT product_id,SUM(sale_price) AS 'sales' FROM orders
 GROUP BY product_id
-ORDER BY sales DESC LIMIT 10;
+ORDER BY sales DESC LIMIT 10
 
 
 -- find top 5 highest selling products in each region
@@ -13,7 +13,7 @@ ORDER BY region,highest_sales DESC)
 SELECT * from(SELECT *,
 				ROW_NUMBER() OVER(PARTITION BY region ORDER BY highest_sales DESC) AS 'rn' 
                 FROM cte)t
-WHERE rn <= 5;
+WHERE rn <= 5
 
 
 -- find month over month growth comparison for 2022 and 2023 sales eg: jan 2022 vs jan 2023
@@ -31,7 +31,7 @@ SELECT
     SUM(CASE WHEN year = 2023 THEN sales ELSE 0 END) AS 'sales_2023'
 FROM cte
 GROUP BY month
-ORDER BY month;
+ORDER BY month
 
 
 -- for each category which month had highest sales
@@ -44,7 +44,7 @@ SELECT *
 FROM(SELECT *,
 		ROW_NUMBER() OVER(PARTITION BY category ORDER BY sales DESC) AS 'rn'
 	 FROM cte)t
-WHERE rn = 1;
+WHERE rn = 1
 
 
 -- which category had highest growth by profit in 2023 compare to 2022
